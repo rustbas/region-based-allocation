@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-Wall -Wextra
 
-all: main
+all: main.out
 
-main: main.c
-	$(CC) $(CFLAGS) main.c -o main
+main.out: main.c
+	$(CC) $(CFLAGS) main.c -o main.out
