@@ -1,23 +1,52 @@
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#define REGION_SIZE 64000
+#define REGION_SIZE 2048
+#define RAND (rand() / (double) RAND_MAX)
+
+#define UNIMPLEMENTED \
+  do { \
+    fprintf(stderr, "%s() is not implemented yet\n", __func__); \
+    exit(1); \
+  } while(0) 
 
 typedef struct {
-  int *start;
+  int8_t *start;
   size_t cursor;
+  size_t size;
+  size_t count;
 } Region;
 
 void regionInit(Region *region, size_t size){
-  region->start = malloc(sizeof(int)*size);
+  region->start = malloc(sizeof(int8_t)*size);
   region->cursor = 0;
+  region->count = 0;
+  region->size = size;
 
-  memset(region->start, 0, size*sizeof(int));
+  memset(region->start, 0, size*sizeof(int8_t));
+}
+
+void* regionIncrease(Region *region, size_t size) {
+  size_t n = 2;
+  while (region->size + size >= region->size*n) n <<= 1;
+
+  region->size = region->size*n;
+  region->start = realloc(region->start, region->size);
+  region->cursor += size;
+  region->count++;
+
+  return (void*)(region->start + region->cursor - size);
 }
 
 void* regionAlloc(Region *region, size_t size) {
+  if (region->cursor + size >= region->size) {
+    return regionIncrease(region, size);
+  }
+
   region->cursor += size;
+  region->count++;
   return (void*)(region->start + region->cursor - size);
 }
 
@@ -29,27 +58,19 @@ void regionFree(Region *region) {
 void regionDump(Region *region) {
   printf("Region dump:\n");
   printf("    cursor: %zu\n", region->cursor);
-  printf("     start: %p\n", (void*) region->start);
+  printf("    size:   %zu\n", region->size);
+  printf("    count:  %zu\n", region->count);
+  printf("    start:  %p\n", (void*) region->start);
 }
 
 int main() {
 
-  Region region;
-  regionInit(&region, REGION_SIZE);
+  Region *region = malloc(sizeof(Region));
+  regionInit(region, REGION_SIZE);
   
-  size_t test_size = 10;
-  int *test = (int*)regionAlloc(&region, test_size);
-  
-  for (size_t i=0; i<test_size; i++) {
-    test[i] = i*i*i;
-    printf("%d\n", test[i]);
-  }
 
-  regionDump(&region);
-
-  printf("hello, world!\n");
-
-  regionFree(&region);
+  regionDump(region);
+  regionFree(region);
 
   return 0;
 }
