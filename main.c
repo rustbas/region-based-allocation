@@ -4,7 +4,6 @@
 #include <string.h>
 
 #define REGION_SIZE 2048
-#define RAND (rand() / (double) RAND_MAX)
 
 #define UNIMPLEMENTED \
   do { \
@@ -19,13 +18,17 @@ typedef struct {
   size_t count;
 } Region;
 
-void regionInit(Region *region, size_t size){
+Region* regionInit(size_t size){
+  Region *region = malloc(sizeof(Region));
+
   region->start = malloc(sizeof(int8_t)*size);
   region->cursor = 0;
   region->count = 0;
   region->size = size;
 
   memset(region->start, 0, size*sizeof(int8_t));
+
+  return region;
 }
 
 void* regionIncrease(Region *region, size_t size) {
@@ -65,9 +68,9 @@ void regionDump(Region *region) {
 
 int main() {
 
-  Region *region = malloc(sizeof(Region));
-  regionInit(region, REGION_SIZE);
+  Region *region = regionInit(REGION_SIZE);
   
+  int* test = (int*) regionAlloc(region, sizeof(int)*10);
 
   regionDump(region);
   regionFree(region);
