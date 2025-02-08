@@ -96,7 +96,7 @@ void regionFree(Region *region) {
   free(region->start);
   region->start = 0;
   region->cursor = 0;
-  region->size = 0;
+  region->size = REGION_SIZE;
   region->count = 0;
 }
 
@@ -105,7 +105,7 @@ void regionFree(Region *region) {
 // IN:
 //     *region -- Region object
 void regionDump(Region *region) {
-  printf("Region dump:\n");
+  printf("  Region dump:\n");
   printf("    cursor: %zu\n", region->cursor);
   printf("    size:   %zu\n", region->size);
   printf("    count:  %zu\n", region->count);
