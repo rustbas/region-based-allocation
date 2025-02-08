@@ -4,7 +4,7 @@
 - [x] Create STB-style header file
 - [x] Write usage
 - [x] Create examples
-- [ ] Create 'stack' version
+- [ ] Create 'stack' version (optional)
 
 # Description
 
@@ -12,6 +12,9 @@ STB-style library for Region-based memory management.
 Created for educational purposes.
 
 # Usage
+
+> You can download repository and run `make demo`. 
+> Is repeats the following information.
 
 First of all, you need to initialize `region` 
 (you may want to redefine `REGION_SIZE`, default value is 2048 bytes):
