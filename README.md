@@ -1,10 +1,9 @@
 # TODO
 
-- [x] Аллоцировать `char` или `u8`, так как их размер как раз 1 байт
-- [x] Создать репозиторий
-- [x] Свести все в STB-библиотеку
-- [ ] Написать usage
-- [ ] Написать примеры
+- [x] Alloc only chars or u8
+- [x] Create STB-style header file
+- [ ] Write usage
+- [ ] Create examples
 
 # Description
 
