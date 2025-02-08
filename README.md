@@ -2,7 +2,7 @@
 
 - [x] Alloc only chars or u8
 - [x] Create STB-style header file
-- [ ] Write usage
+- [x] Write usage
 - [ ] Create examples
 - [ ] Create 'stack' version
 
