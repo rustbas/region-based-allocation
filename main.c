@@ -3,74 +3,21 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define REGION_SIZE 2048
+#define RB_ALLOC_IMPLEMENTATION
+#include "rb_alloc.h"
 
-#define UNIMPLEMENTED \
-  do { \
-    fprintf(stderr, "%s() is not implemented yet\n", __func__); \
-    exit(1); \
-  } while(0) 
 
-typedef struct {
-  int8_t *start;
-  size_t cursor;
-  size_t size;
-  size_t count;
-} Region;
-
-Region* regionInit(size_t size){
-  Region *region = malloc(sizeof(Region));
-
-  region->start = malloc(sizeof(int8_t)*size);
-  region->cursor = 0;
-  region->count = 0;
-  region->size = size;
-
-  memset(region->start, 0, size*sizeof(int8_t));
-
-  return region;
-}
-
-void* regionIncrease(Region *region, size_t size) {
-  size_t n = 2;
-  while (region->size + size >= region->size*n) n <<= 1;
-
-  region->size = region->size*n;
-  region->start = realloc(region->start, region->size);
-  region->cursor += size;
-  region->count++;
-
-  return (void*)(region->start + region->cursor - size);
-}
-
-void* regionAlloc(Region *region, size_t size) {
-  if (region->cursor + size >= region->size) {
-    return regionIncrease(region, size);
-  }
-
-  region->cursor += size;
-  region->count++;
-  return (void*)(region->start + region->cursor - size);
-}
-
-void regionFree(Region *region) {
-  free(region->start);
-  region->cursor = 0;
-}
-
-void regionDump(Region *region) {
-  printf("Region dump:\n");
-  printf("    cursor: %zu\n", region->cursor);
-  printf("    size:   %zu\n", region->size);
-  printf("    count:  %zu\n", region->count);
-  printf("    start:  %p\n", (void*) region->start);
-}
 
 int main() {
 
   Region *region = regionInit(REGION_SIZE);
-  
-  int* test = (int*) regionAlloc(region, sizeof(int)*10);
+
+  size_t iter_count = 15;
+  for (size_t i=0; i<iter_count; i++) {
+    int* tmp = regionAlloc(region, 500);
+    tmp[0] = 1;
+    regionDump(region);
+  }
 
   regionDump(region);
   regionFree(region);
