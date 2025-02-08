@@ -4,6 +4,7 @@
 - [x] Create STB-style header file
 - [ ] Write usage
 - [ ] Create examples
+- [ ] Create 'stack' version
 
 # Description
 
