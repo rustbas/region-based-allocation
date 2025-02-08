@@ -14,7 +14,7 @@ Created for educational purposes.
 # Usage
 
 First of all, you need to initialize `region` 
-(you may to redefine `REGION_SIZE`, default value is 2048 bytes):
+(you may want to redefine `REGION_SIZE`, default value is 2048 bytes):
 
 ```c
 Region *region = regionInit(REGION_SIZE);
@@ -37,6 +37,13 @@ After all, you need to free region:
 regionFree(region);
 ```
 
+For debug purposes you can print region information:
+
+```c
+regionDump(region);
+```
+
+It prints all information about region.
 
 # References 
 
