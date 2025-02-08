@@ -94,7 +94,7 @@ void *regionAlloc(Region *region, size_t size) {
 //     *region -- pointer to Region object
 void regionFree(Region *region) {
   free(region->start);
-  region->start = 0;
+  region->start = NULL;
   region->cursor = 0;
   region->size = REGION_SIZE;
   region->count = 0;
