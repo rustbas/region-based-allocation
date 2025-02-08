@@ -16,6 +16,11 @@ Created for educational purposes.
 > You can download repository and run `make demo`. 
 > Is repeats the following information.
 
+To include library (remove `#define` to include only header part):
+```c
+#define RB_ALLOC_IMPLEMENTATION
+#include "rb_alloc.h"
+```
 First of all, you need to initialize `region` 
 (you may want to redefine `REGION_SIZE`, default value is 2048 bytes):
 
