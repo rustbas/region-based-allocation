@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-Wall -Wextra -pedantic -ggdb
 
-all: main.out
+all: demo.out
 
-main.out: main.c
-	$(CC) $(CFLAGS) main.c -o main.out
+demo.out: demo.c
+	$(CC) $(CFLAGS) demo.c -o demo.out
