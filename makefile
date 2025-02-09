@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -Wextra -pedantic -ggdb
+CFLAGS=-Wall -Wextra -pedantic -ggdb -std=c89
 
 demo: demo.out
 
