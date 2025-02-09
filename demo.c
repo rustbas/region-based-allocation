@@ -6,9 +6,13 @@
 #define RB_ALLOC_IMPLEMENTATION
 #include "rb_alloc.h"
 
-
-
 int main() {
+
+  size_t i, j;
+
+  const size_t ROWS = 3;
+  const size_t COLS = 4;
+  double** matrix;
 
   /* Region initialization */
   Region *region = regionInit(REGION_SIZE);
@@ -19,12 +23,7 @@ int main() {
   printf("\n");
 
   /* Allocation matrix on region */
-  const size_t ROWS = 3;
-  const size_t COLS = 4;
-
-  size_t i, j;
-
-  double** matrix = regionAlloc(region, sizeof(double*)*ROWS);
+  matrix = regionAlloc(region, sizeof(double*)*ROWS);
   for (i = 0; i < ROWS; i++)
     matrix[i] = regionAlloc(region, sizeof(double)*COLS);
 

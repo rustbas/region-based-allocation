@@ -1,4 +1,15 @@
-typedef struct region Region;
+/* Region struct: */
+/*     *start -- pointer to begin of region */
+/*     cursor -- pointer to begin of allocated memory */
+/*     size   -- size of region (in bytes) */
+/*     count  -- count of allocated objects */
+typedef struct region {
+  char *start;
+  size_t cursor;
+  size_t size;
+  size_t count;
+} Region;
+
 Region *regionInit(size_t size);
 void *regionIncrease(Region *region, size_t size);
 void *regionAlloc(Region *region, size_t size);
@@ -18,17 +29,6 @@ void regionFree(Region *region);
     exit(1);                                                                   \
   } while (0)
 
-/* Region struct: */
-/*     *start -- pointer to begin of region */
-/*     cursor -- pointer to begin of allocated memory */
-/*     size   -- size of region (in bytes) */
-/*     count  -- count of allocated objects */
-typedef struct region {
-  char *start;
-  size_t cursor;
-  size_t size;
-  size_t count;
-} Region;
 
 /* Initialization function */
 /* IN: */
@@ -106,9 +106,9 @@ void regionFree(Region *region) {
 /*     *region -- Region object */
 void regionDump(Region *region) {
   printf("  Region dump:\n");
-  printf("    cursor: %zu\n", region->cursor);
-  printf("    size:   %zu\n", region->size);
-  printf("    count:  %zu\n", region->count);
+  printf("    cursor: %u\n", (unsigned) region->cursor);
+  printf("    size:   %u\n", (unsigned) region->size);
+  printf("    count:  %u\n", (unsigned) region->count);
   printf("    start:  %p\n", (void *)region->start);
 }
 #endif
