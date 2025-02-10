@@ -4,8 +4,7 @@
 - [x] Create STB-style header file
 - [x] Write usage
 - [x] Create examples
-- [ ] Fix `c89`
-    - Fix comment style
+- [x] Fix `c89`
 - [ ] Create 'stack' version (optional)
 
 # Description
