@@ -1,4 +1,5 @@
-/*  Region struct:
+/*  
+ *  Region struct:
  *    *start -- pointer to begin of region
  *    cursor -- pointer to begin of allocated memory
  *    size   -- size of region (in bytes)
@@ -17,7 +18,8 @@ void *regionAlloc(Region *region, size_t size);
 void regionFree(Region *region);
 
 #ifdef RB_ALLOC_IMPLEMENTATION
-/*  Default region size (in bytes)
+/*  
+ *  Default region size (in bytes)
  *  You may change this value to avoid region reallocation
  */
 #ifndef REGION_SIZE
