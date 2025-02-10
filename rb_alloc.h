@@ -1,14 +1,14 @@
-/*  Region struct: 
- *    *start -- pointer to begin of region 
- *    cursor -- pointer to begin of allocated memory 
- *    size   -- size of region (in bytes) 
- *    count  -- count of allocated objects 
+/*  Region struct:
+ *    *start -- pointer to begin of region
+ *    cursor -- pointer to begin of allocated memory
+ *    size   -- size of region (in bytes)
+ *    count  -- count of allocated objects
  */
 typedef struct region {
-  char *start;
-  size_t cursor;
-  size_t size;
-  size_t count;
+  char   *start;
+  size_t  cursor;
+  size_t  size;
+  size_t  count;
 } Region;
 
 Region *regionInit(size_t size);
@@ -17,15 +17,15 @@ void *regionAlloc(Region *region, size_t size);
 void regionFree(Region *region);
 
 #ifdef RB_ALLOC_IMPLEMENTATION
-/*  Default region size (in bytes) 
- *  You may change this value to avoid region reallocation  
+/*  Default region size (in bytes)
+ *  You may change this value to avoid region reallocation
  */
 #ifndef REGION_SIZE
 #define REGION_SIZE 2048
 #endif
 
-/* 
- * For development purposes 
+/*
+ * For development purposes
  */
 #define UNIMPLEMENTED                                                          \
   do {                                                                         \
@@ -34,14 +34,14 @@ void regionFree(Region *region);
   } while (0)
 
 
-/*  
- *  Initialization function 
- *    IN: 
- *        size -- memory size to allocation (in bytes) *
- *    OUT: 
- *        Region* -- pointer to Region object 
- *  NOTE: All memory initializated by 0 
-*/ 
+/*
+ *  Initialization function
+ *    IN:
+ *        size -- memory size to allocation (in bytes)
+ *    OUT:
+ *        Region* -- pointer to Region object
+ *  NOTE: All memory initializated by 0
+*/
 Region *regionInit(size_t size) {
   Region *region = malloc(sizeof(Region));
 
@@ -58,7 +58,7 @@ Region *regionInit(size_t size) {
 /*
  *  This function increase region size
  *    IN:
- *      size    -- needed size to alloc 
+ *      size    -- needed size to alloc
  *    OUT:
  *      *Region -- pointer to reallocated Region
  *  NOTE: It is not needed to increase region size by yourself
@@ -80,7 +80,7 @@ void *regionIncrease(Region *region, size_t size) {
 /*
  *  Allocation function
  *    IN:
- *      *region -- pointer to Region object 
+ *      *region -- pointer to Region object
  *      size    -- memory size to allocation (in bytes)
  *    OUT:
  *      (void*) -- pointer to allocated memory
@@ -98,7 +98,7 @@ void *regionAlloc(Region *region, size_t size) {
 /*
  *  This function free allocated memory
  *  IN:
- *    *region -- pointer to Region object 
+ *    *region -- pointer to Region object
  */
 void regionFree(Region *region) {
   free(region->start);
@@ -112,7 +112,7 @@ void regionFree(Region *region) {
  *  Dumping function
  *  Prints info about Region object
  *  IN:
- *    *region -- Region object 
+ *    *region -- Region object
  */
 void regionDump(Region *region) {
   printf("  Region dump:\n");
